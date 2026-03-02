@@ -1,15 +1,12 @@
-# ImageMagick Binary
-magick/
-
 # Input images
-inputImages/
+assets/inputImages/
 
 # Output images
-outputImages/
+assets/outputImages/
 
 # Temporary Files
 *.tmp
 *.log
 
-# Dev tests
-icones_applis_installees/
+# User data
+config/*
