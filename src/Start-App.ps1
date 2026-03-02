@@ -10,19 +10,19 @@ $projectRoot = Split-Path $PSScriptRoot -Parent # path to the project root
 
 # path to the images source folder
 if (-not $folder) {
-    $folder = "$projectRoot/assets/inputImages"
+    $folder = "$projectRoot/assets/input-images"
 }
 
 $magickPath = "magick" # path to the magick executable
 
 # imports
-. "$projectRoot/src/utils.ps1"
-. "$projectRoot/src/transformImage.ps1"
+. "$projectRoot/src/Utils.ps1"
+. "$projectRoot/src/TransformImage.ps1"
 
 # use helper to find magick
-$magickPath = getMagickPath
+$magickPath = Get-MagickPath
 
-function startApp {
+function Start-App {
     Param(
         [string]$imageSourceFolder = $folder,
         [string]$foregroundIconColor = $fgColor,
@@ -46,12 +46,12 @@ function startApp {
         # get new name
         $sourceImageWithoutExtension = [System.IO.Path]::GetFileNameWithoutExtension($image.Name)
         $sourceImageExtension = [System.IO.Path]::GetExtension($image.Name)
-        $outputImage = Join-Path "$projectRoot/assets/outputImages" "$sourceImageWithoutExtension`_result$sourceImageExtension"
+        $outputImage = Join-Path "$projectRoot/assets/output-images" "$sourceImageWithoutExtension`_result$sourceImageExtension"
 
         Write-Host "Processing: $($image.Name)..." -ForegroundColor Cyan
 
         # transform the image
-        transformImage -sourceImage $image.FullName -outputImage $outputImage -magickPath $magickPath -foregroundIconColor $foregroundIconColor -backgroundIconColor $backgroundIconColor -borderRadius $borderRadius -zoomScale $zoomScale
+        Invoke-TransformImage -sourceImage $image.FullName -outputImage $outputImage -magickPath $magickPath -foregroundIconColor $foregroundIconColor -backgroundIconColor $backgroundIconColor -borderRadius $borderRadius -zoomScale $zoomScale
     }
 
     Write-Host "All images processed."
@@ -59,5 +59,5 @@ function startApp {
 
 # run the app if this file is not being imported (don't run if imported)
 if ($MyInvocation.InvocationName -ne '.') {
-    startApp
+    Start-App
 }

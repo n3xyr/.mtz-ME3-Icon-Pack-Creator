@@ -1,4 +1,4 @@
-function getMagickPath {
+function Get-MagickPath {
     # get the magick path from PATH
 
     $finalMagickPath = $null

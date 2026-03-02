@@ -1,4 +1,4 @@
-function transformImage {
+function Invoke-TransformImage {
     Param(
         [Parameter(Mandatory = $true)]
         [string]$sourceImage, # path to the source image
