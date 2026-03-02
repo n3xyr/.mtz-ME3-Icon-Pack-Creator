@@ -1,16 +1,16 @@
 Param(
-    [string]$folder, # path to the images source folder
-    [string]$fgColor = "#BDC1FE", # color of the icon foreground
-    [string]$bgColor = "#2E2F43", # color of the icon background
-    [int]$radius = 80, # border radius
-    [float]$zoom = 1.6 # by how much the icon will be zoomed in
+    [string]$Folder, # path to the images source folder
+    [string]$FgColor = "#BDC1FE", # color of the icon foreground
+    [string]$BgColor = "#2E2F43", # color of the icon background
+    [int]$Radius = 80, # border Radius
+    [float]$Zoom = 1.6 # by how much the icon will be zoomed in
 )
 
 $projectRoot = Split-Path $PSScriptRoot -Parent # path to the project root
 
 # path to the images source folder
-if (-not $folder) {
-    $folder = "$projectRoot/assets/input-images"
+if (-not $Folder) {
+    $Folder = "$projectRoot/assets/input-images"
 }
 
 $magickPath = "magick" # path to the magick executable
@@ -24,11 +24,11 @@ $magickPath = Get-MagickPath
 
 function Start-App {
     Param(
-        [string]$imageSourceFolder = $folder,
-        [string]$foregroundIconColor = $fgColor,
-        [string]$backgroundIconColor = $bgColor,
-        [int]$borderRadius = $radius,
-        [float]$zoomScale = $zoom
+        [string]$imageSourceFolder = $Folder,
+        [string]$foregroundIconColor = $FgColor,
+        [string]$backgroundIconColor = $BgColor,
+        [int]$borderRadius = $Radius,
+        [float]$ZoomScale = $Zoom
     )
 
 
@@ -51,7 +51,7 @@ function Start-App {
         Write-Host "Processing: $($image.Name)..." -ForegroundColor Cyan
 
         # transform the image
-        Invoke-TransformImage -sourceImage $image.FullName -outputImage $outputImage -magickPath $magickPath -foregroundIconColor $foregroundIconColor -backgroundIconColor $backgroundIconColor -borderRadius $borderRadius -zoomScale $zoomScale
+        Invoke-TransformImage -sourceImage $image.FullName -outputImage $outputImage -magickPath $magickPath -foregroundIconColor $foregroundIconColor -backgroundIconColor $backgroundIconColor -borderRadius $borderRadius -zoomScale $ZoomScale
     }
 
     Write-Host "All images processed."
