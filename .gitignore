@@ -1,0 +1,12 @@
+# ImageMagick Binary
+magick/
+
+# Input images
+inputImages/
+
+# Output images
+outputImages/
+
+# Temporary Files
+*.tmp
+*.log
