@@ -1,12 +1,25 @@
 function transformImage {
     Param(
-        [string]$sourceImage = "./inputImages/default_icon_1.png", # path to the source image
-        [string]$outputImage = "./outputImages/default_icon_1_result.png", # path to the output image
-        [string]$magickPath = "magick", # command name or path to magick
-        [string]$foregroundIconColor = "#BDC1FE", # color of the icon foreground
-        [string]$backgroundIconColor = "#2E2F43", # color of the icon background
-        [int]$borderRadius = 80, # border radius
-        [float]$zoomScale = 1.6 # by how much the icon will be zoomed in
+        [Parameter(Mandatory = $true)]
+        [string]$sourceImage, # path to the source image
+
+        [Parameter(Mandatory = $true)]
+        [string]$outputImage, # path to the output image
+
+        [Parameter(Mandatory = $true)]
+        [string]$magickPath, # command name or path to magick
+
+        [Parameter(Mandatory = $true)]
+        [string]$foregroundIconColor, # color of the icon foreground
+
+        [Parameter(Mandatory = $true)]
+        [string]$backgroundIconColor, # color of the icon background
+
+        [Parameter(Mandatory = $true)]
+        [int]$borderRadius, # border radius
+
+        [Parameter(Mandatory = $true)]
+        [float]$zoomScale # by how much the icon will be zoomed in
     )
 
     $inPercentZoomScale = $zoomScale * 100 # zoom scale in percent format

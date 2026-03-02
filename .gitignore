@@ -10,3 +10,6 @@ outputImages/
 # Temporary Files
 *.tmp
 *.log
+
+# Dev tests
+icones_applis_installees/
