@@ -1,9 +1,7 @@
 function transformImage {
     Param(
-        [Parameter(Mandatory = $true, Position = 0)]
-        [string]$sourceImage, # path to the source image
-
-        [string]$outputImage = "test_resultat.png", # path to the output image
+        [string]$sourceImage = "./inputImages/default_icon_1.png", # path to the source image
+        [string]$outputImage = "./outputImages/default_icon_1_result.png", # path to the output image
         [string]$magickPath = "magick", # command name or path to magick
         [string]$foregroundIconColor = "#BDC1FE", # color of the icon foreground
         [string]$backgroundIconColor = "#2E2F43", # color of the icon background

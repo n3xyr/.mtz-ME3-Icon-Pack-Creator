@@ -1,4 +1,6 @@
-Param()
+Param(
+    [string]$sourceImage = "./inputImages/default_icon_1.png" # path to the source image
+)
 
 # imports
 . "$PSScriptRoot\utils.ps1"
@@ -13,12 +15,10 @@ if (-not $magickPath) {
     exit 1
 }
 
-# transform an image
-$sourceImage = "./inputImages/test_icon_1.png"
-
 # get new name
 $sourceImageWithoutExtension = [System.IO.Path]::GetFileNameWithoutExtension($sourceImage)
 $sourceImageExtension = [System.IO.Path]::GetExtension($sourceImage)
 $outputImage = Join-Path "./outputImages" "$sourceImageWithoutExtension`_result$sourceImageExtension"
 
+# transform an image
 transformImage -sourceImage $sourceImage -outputImage $outputImage -magickPath $magickPath

@@ -10,11 +10,7 @@ winget install ImageMagick.ImageMagick
 Or download it from the [official website](https://imagemagick.org/script/download.php).
 
 ## Usage
-Simply run the script with the path to your source icon:
+Run the script with the path to your source icon:
 ```powershell
-.\script.ps1 .\your_icon.png
-```
-You can also customize the output:
-```powershell
-.\script.ps1 .\your_icon.png -borderRadius 50 -foregroundIconColor "#FF0000"
+.\main.ps1 .\your_icon.png
 ```
