@@ -11,7 +11,7 @@ $projectRoot = Split-Path $PSScriptRoot -Parent # path to the project root
 
 # path to the images source folder
 if (-not $Folder) {
-    $Folder = "$projectRoot/assets/input-images"
+    $Folder = "$projectRoot/assets/input-images/default"
 }
 
 $magickPath = "magick" # path to the magick executable
@@ -26,7 +26,7 @@ $magickPath = Get-MagickPath
 
 function Start-App {
     Param(
-        [string]$CleanedAppsList,
+        [string]$RawAppList = $List,
         [string]$foregroundIconColor = $FgColor,
         [string]$backgroundIconColor = $BgColor,
         [int]$borderRadius = $Radius,
@@ -34,7 +34,7 @@ function Start-App {
         [string]$imageSourceFolder = $Folder
     )
 
-    $CleanedAppList = Invoke-CleanAppList -InstalledAppsList $List
+    $CleanedAppList = Invoke-CleanAppList -RawAppList $RawAppList
 
     if (-not $magickPath) {
         Write-Host "Error: ImageMagick not found in PATH or local folder." -ForegroundColor Red
@@ -50,7 +50,13 @@ function Start-App {
         # get new name
         $sourceImageWithoutExtension = [System.IO.Path]::GetFileNameWithoutExtension($image.Name)
         $sourceImageExtension = [System.IO.Path]::GetExtension($image.Name)
-        $outputImage = Join-Path "$projectRoot/assets/output-images" "$sourceImageWithoutExtension`_result$sourceImageExtension"
+
+        if ($imageSourceFolder -eq "$projectRoot/assets/input-images/default") {
+            $outputImage = Join-Path "$projectRoot/assets/output-images/default" "$sourceImageWithoutExtension`_result$sourceImageExtension"
+        }
+        else {
+            $outputImage = Join-Path "$projectRoot/assets/output-images/user" "$sourceImageWithoutExtension`_result$sourceImageExtension"
+        }
 
         Write-Host "Processing: $($image.Name)..." -ForegroundColor Cyan
 

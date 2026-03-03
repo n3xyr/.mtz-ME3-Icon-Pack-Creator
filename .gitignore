@@ -1,8 +1,8 @@
 # Input images
-assets/inputImages/
+assets/input-images/user/
 
 # Output images
-assets/outputImages/
+assets/output-images/user/
 
 # Temporary Files
 *.tmp
