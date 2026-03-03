@@ -1,5 +1,3 @@
-$projectRoot = Split-Path $PSScriptRoot -Parent # path to the project root
-
 function Invoke-CleanAppList {
     Param(
         [Parameter(Mandatory = $true)]
@@ -8,7 +6,6 @@ function Invoke-CleanAppList {
 
     Write-Host "Cleaning app list..."
 
-    $cleanedAppListPath = "$projectRoot/data/clean-app-list.txt" # path to the new, cleaned app list
     $lines = Get-Content -Path $RawAppList # all lines in the file
     $cleanedLines = @() # array to store the cleaned lines
     
@@ -19,8 +16,7 @@ function Invoke-CleanAppList {
         }
     }
 
-    # save the cleaned lines in the clean-app-list.txt file
-    $cleanedLines | Set-Content -Path $cleanedAppListPath -Encoding UTF8
-
     Write-Host "App list cleaned successfully."
+
+    return $cleanedLines
 }

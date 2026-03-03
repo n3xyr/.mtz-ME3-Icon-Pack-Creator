@@ -9,7 +9,10 @@ assets/output-images/user/
 *.log
 
 # User data
-config/*
+config/
 
 # Data
-data/clean-app-list.txt
+data/user/
+
+# Tests
+test-ressources/

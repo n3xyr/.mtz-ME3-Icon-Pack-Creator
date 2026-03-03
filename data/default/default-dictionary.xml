@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <version>1
+    </version>
+    <item
+        component="ComponentInfo{com.android.camera/com.android.camera.CameraLauncher}"
+        drawable="camera_dym"/>
+</resources>

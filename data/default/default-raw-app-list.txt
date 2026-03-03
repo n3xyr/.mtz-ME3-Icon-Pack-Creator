@@ -1,0 +1,3 @@
+﻿Appareil photo
+com.android.camera
+com.android.camera.Camera

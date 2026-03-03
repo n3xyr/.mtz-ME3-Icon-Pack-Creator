@@ -70,3 +70,52 @@ function Invoke-TransformImage {
         Write-Host "image creation failed" -ForegroundColor Red
     }
 }
+
+function Invoke-TransformImageBatch {
+    Param(
+        [Parameter(Mandatory = $true)]
+        [string]$MagickPath,
+
+        [Parameter(Mandatory = $true)]
+        [string]$ForegroundIconColor,
+
+        [Parameter(Mandatory = $true)]
+        [string]$BackgroundIconColor,
+
+        [Parameter(Mandatory = $true)]
+        [int]$BorderRadius,
+
+        [Parameter(Mandatory = $true)]
+        [float]$ZoomScale,
+
+        [Parameter(Mandatory = $true)]
+        [boolean]$UseDefaultImages,
+
+        [Parameter(Mandatory = $true)]
+        [string]$projectRoot,
+
+        [Parameter(Mandatory = $true)]
+        [array]$Images
+    )
+
+    foreach ($image in $Images) {
+        # get new name
+        $sourceImageWithoutExtension = [System.IO.Path]::GetFileNameWithoutExtension($image.Name)
+        $sourceImageExtension = [System.IO.Path]::GetExtension($image.Name)
+
+        Write-Host "image: $($image)"
+
+        # get output image path based on the default flag
+        if ($UseDefaultImages) {
+            $outputImage = Join-Path "$projectRoot/assets/output-images/default" "$sourceImageWithoutExtension`_result$sourceImageExtension"
+        }
+        else {
+            $outputImage = Join-Path "$projectRoot/assets/output-images/user" "$sourceImageWithoutExtension`_result$sourceImageExtension"
+        }
+
+        Write-Host "Processing: $($image.Name)..." -ForegroundColor Cyan
+
+        # transform the image
+        Invoke-TransformImage -SourceImage $image.FullName -OutputImage $outputImage -MagickPath $magickPath -ForegroundIconColor $foregroundIconColor -BackgroundIconColor $backgroundIconColor -BorderRadius $borderRadius -ZoomScale $ZoomScale
+    }
+}

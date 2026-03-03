@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<theme>
+<version><![CDATA[1.0]]></version>
+<uiVersion><![CDATA[15]]></uiVersion>
+<author><![CDATA[Me]]></author>
+<designer><![CDATA[Me]]></designer>
+<title><![CDATA[Material 3 Icon Pack]]></title>
+<description><![CDATA[Material 3 Icon Pack]]></description>
+<authors>
+<author locale="en_US"><![CDATA[Me]]></author>
+</authors>
+<designers>
+<designer locale="en_US"><![CDATA[Me]]></designer>
+</designers>
+<titles>
+<title locale="en_US"><![CDATA[Material 3 Icon Pack]]></title>
+</titles>
+<descriptions>
+<description locale="en_US"><![CDATA[Material 3 Icon Pack]]></description>
+</descriptions>
+</theme>
