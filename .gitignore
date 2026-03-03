@@ -10,3 +10,6 @@ assets/outputImages/
 
 # User data
 config/*
+
+# Data
+data/clean-app-list.txt
