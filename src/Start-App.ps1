@@ -2,7 +2,7 @@ Param(
     [string]$List, # path to the list of installed apps on the phone
     [string]$FgColor = "#BDC1FE", # color of the icon foreground
     [string]$BgColor = "#2E2F43", # color of the icon background
-    [int]$Radius = 80, # border Radius
+    [int]$Radius = 125, # border Radius
     [float]$Zoom = 1.6, # by how much the icon will be zoomed in
     [boolean]$Default = $false, # whether to use default images or user images
     [string]$Dictionary, # path to the dictionary that associated images with package names
@@ -26,7 +26,7 @@ function Start-App {
         [string]$backgroundIconColor = $BgColor,
         [int]$borderRadius = $Radius,
         [float]$ZoomScale = $Zoom,
-        [boolean]$UseDefaultImages = $Default,
+        [boolean]$UseDefaultSettings = $Default,
         [string]$DictionaryPath = $Dictionary,
         [string]$IconBankPath = $IconBank
     )
@@ -38,22 +38,22 @@ function Start-App {
         $cleanedLines = Invoke-CleanAppList -RawAppList $RawAppList 
         $cleanedLines | Set-Content -Path $cleanedAppList -Encoding UTF8
 
-        Invoke-SelectImagesFromList -AppListPath $cleanedAppList -DictionaryPath $DictionaryPath -IconBankPath $IconBankPath -DestFolder "$projectRoot/assets/input-images/user"
-        $images = Get-ChildItem -Path "$projectRoot/assets/input-images/user" -Filter "*.png" -File
+        Invoke-SelectImagesFromList -AppListPath $cleanedAppList -DictionaryPath $DictionaryPath -IconBankPath $IconBankPath -DestFolder "$projectRoot/assets/user/input-images"
+        $images = Get-ChildItem -Path "$projectRoot/assets/user/input-images" -Filter "*.png" -File
         
-        Invoke-TransformImageBatch -MagickPath $magickPath -ForegroundIconColor $foregroundIconColor -BackgroundIconColor $backgroundIconColor -BorderRadius $borderRadius -ZoomScale $ZoomScale -UseDefaultImages $UseDefaultImages -projectRoot $projectRoot -Images $images
+        Invoke-TransformImageBatch -MagickPath $magickPath -ForegroundIconColor $foregroundIconColor -BackgroundIconColor $backgroundIconColor -BorderRadius $borderRadius -ZoomScale $ZoomScale -UseDefaultImages $UseDefaultSettings -projectRoot $projectRoot -Images $images
     }
-    elseif ($UseDefaultImages) {
+    elseif ($UseDefaultSettings) {
         # process images with default list
 
         $cleanedAppList = "$projectRoot/data/default/default-clean-app-list.txt"
         $cleanedLines = Invoke-CleanAppList -RawAppList "$projectRoot/data/default/default-raw-app-list.txt"
         $cleanedLines | Set-Content -Path $cleanedAppList -Encoding UTF8
 
-        Invoke-SelectImagesFromList -AppListPath $cleanedAppList -DictionaryPath "$projectRoot/data/default/default-dictionary.xml" -IconBankPath "$projectRoot/data/default/default-icon-bank" -DestFolder "$projectRoot/assets/input-images/default"
-        $images = Get-ChildItem -Path "$projectRoot/assets/input-images/default" -Filter "*.png" -File
+        Invoke-SelectImagesFromList -AppListPath $cleanedAppList -DictionaryPath "$projectRoot/data/default/default-dictionary.xml" -IconBankPath "$projectRoot/data/default/default-icon-bank" -DestFolder "$projectRoot/assets/default/input-images"
+        $images = Get-ChildItem -Path "$projectRoot/assets/default/input-images" -Filter "*.png" -File
 
-        Invoke-TransformImageBatch -MagickPath $magickPath -ForegroundIconColor $foregroundIconColor -BackgroundIconColor $backgroundIconColor -BorderRadius $borderRadius -ZoomScale $ZoomScale -UseDefaultImages $UseDefaultImages -projectRoot $projectRoot -Images $images
+        Invoke-TransformImageBatch -MagickPath $magickPath -ForegroundIconColor $foregroundIconColor -BackgroundIconColor $backgroundIconColor -BorderRadius $borderRadius -ZoomScale $ZoomScale -UseDefaultImages $UseDefaultSettings -projectRoot $projectRoot -Images $images
     }
     else {
         Write-Host "Error: App list is empty." -ForegroundColor Red
@@ -67,6 +67,46 @@ function Start-App {
     }
 
     Write-Host "All images processed."
+
+    # create the icon pack
+    if ($UseDefaultSettings) {
+        # compress the images
+        Compress-Archive -Path "$projectRoot/assets/default/icons/*" -DestinationPath "$projectRoot/data/default/icons.zip" -Force
+
+        # remove the .zip extension 
+        Move-Item -Path "$projectRoot/data/default/icons.zip" -Destination "$projectRoot/data/default/icons" -Force
+
+        # create the zip
+        Compress-Archive -Path "$projectRoot/data/default/icons", "$projectRoot/data/default/default-description.xml" -DestinationPath "$projectRoot/data/default/ME3-Icon-Pack.zip" -Force
+
+        # finish the icon pack
+        Move-Item -Path "$projectRoot/data/default/ME3-Icon-Pack.zip" -Destination "$projectRoot/ME3-Icon-Pack.mtz" -Force
+
+        # remove unnecessary files
+        Remove-Item -Path "$projectRoot/data/default/icons" -Force
+        Remove-Item -Path "$projectRoot/assets/default/icons/*" -Force
+        Remove-Item -Path "$projectRoot/assets/default/input-images/*" -Force
+
+    }
+    else {
+        # compress the images
+        Compress-Archive -Path "$projectRoot/assets/user/icons/*" -DestinationPath "$projectRoot/data/user/icons.zip" -Force
+
+        # remove the .zip extension 
+        Move-Item -Path "$projectRoot/data/user/icons.zip" -Destination "$projectRoot/data/user/icons" -Force
+
+        # create the zip
+        Compress-Archive -Path "$projectRoot/data/user/icons", "$projectRoot/data/default/default-description.xml" -DestinationPath "$projectRoot/data/user/ME3-Icon-Pack.zip" -Force
+
+        # finish the icon pack
+        Move-Item -Path "$projectRoot/data/user/ME3-Icon-Pack.zip" -Destination "$projectRoot/ME3-Icon-Pack.mtz" -Force
+
+        # remove unnecessary files
+        Remove-Item -Path "$projectRoot/data/user/icons" -Force
+        Remove-Item -Path "$projectRoot/assets/user/icons/*" -Force
+        Remove-Item -Path "$projectRoot/assets/user/input-images/*" -Force
+    }
+
 }
 
 # run the app if this file is not being imported (don't run if imported)

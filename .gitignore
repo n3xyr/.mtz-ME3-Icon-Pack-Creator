@@ -1,8 +1,5 @@
-# Input images
-assets/input-images/user/
-
-# Output images
-assets/output-images/user/
+# Assets
+assets/
 
 # Temporary Files
 *.tmp
@@ -16,3 +13,6 @@ data/user/
 
 # Tests
 test-ressources/
+
+# Results
+ME3-Icon-Pack.mtz

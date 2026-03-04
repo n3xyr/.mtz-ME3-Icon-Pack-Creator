@@ -99,18 +99,15 @@ function Invoke-TransformImageBatch {
     )
 
     foreach ($image in $Images) {
-        # get new name
-        $sourceImageWithoutExtension = [System.IO.Path]::GetFileNameWithoutExtension($image.Name)
-        $sourceImageExtension = [System.IO.Path]::GetExtension($image.Name)
 
         Write-Host "image: $($image)"
 
         # get output image path based on the default flag
         if ($UseDefaultImages) {
-            $outputImage = Join-Path "$projectRoot/assets/output-images/default" "$sourceImageWithoutExtension`_result$sourceImageExtension"
+            $outputImage = Join-Path "$projectRoot/assets/default/icons" $image.Name
         }
         else {
-            $outputImage = Join-Path "$projectRoot/assets/output-images/user" "$sourceImageWithoutExtension`_result$sourceImageExtension"
+            $outputImage = Join-Path "$projectRoot/assets/user/icons" $image.Name
         }
 
         Write-Host "Processing: $($image.Name)..." -ForegroundColor Cyan
