@@ -9,7 +9,7 @@ Add-Type -AssemblyName System.Windows.Forms
 # create window
 $form = New-Object System.Windows.Forms.Form
 $form.Text = "temp text"
-$form.Size = New-Object System.Drawing.Size(300, 200)
+$form.Size = New-Object System.Drawing.Size(800, 600)
 
 # temporary button
 $button = New-Object System.Windows.Forms.Button

@@ -77,10 +77,10 @@ function Start-App {
         Move-Item -Path "$projectRoot/data/default/icons.zip" -Destination "$projectRoot/data/default/icons" -Force
 
         # create the zip
-        Compress-Archive -Path "$projectRoot/data/default/icons", "$projectRoot/data/default/default-description.xml" -DestinationPath "$projectRoot/data/default/ME3-Icon-Pack.zip" -Force
+        Compress-Archive -Path "$projectRoot/data/default/icons", "$projectRoot/data/default/default-description.xml" -DestinationPath "$projectRoot/data/default/ME3-Icon-Pack-Default.zip" -Force
 
         # finish the icon pack
-        Move-Item -Path "$projectRoot/data/default/ME3-Icon-Pack.zip" -Destination "$projectRoot/ME3-Icon-Pack.mtz" -Force
+        Move-Item -Path "$projectRoot/data/default/ME3-Icon-Pack-Default.zip" -Destination "$projectRoot/ME3-Icon-Pack-Default.mtz" -Force
 
         # remove unnecessary files
         Remove-Item -Path "$projectRoot/data/default/icons" -Force
