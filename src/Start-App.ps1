@@ -1,12 +1,12 @@
 Param(
     [string]$List, # path to the list of installed apps on the phone
+    [string]$Dictionary, # path to the dictionary that associated images with package names
+    [string]$IconBank, # path to the folder containing the icons on which the program will search for the icons to use
     [string]$FgColor = "#BDC1FE", # color of the icon foreground
     [string]$BgColor = "#2E2F43", # color of the icon background
     [int]$Radius = 125, # border Radius
     [float]$Zoom = 1.6, # by how much the icon will be zoomed in
-    [boolean]$Default = $false, # whether to use default images or user images
-    [string]$Dictionary, # path to the dictionary that associated images with package names
-    [string]$IconBank # path to the folder containing the icons on which the program will search for the icons to use
+    [boolean]$Default = $false # whether to use default images or user images
 )
 
 $projectRoot = Split-Path $PSScriptRoot -Parent # path to the project root
