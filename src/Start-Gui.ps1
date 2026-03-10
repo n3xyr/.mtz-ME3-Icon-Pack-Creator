@@ -1,6 +1,5 @@
 $projectRoot = Split-Path $PSScriptRoot -Parent # path to the project root
 
-
 . "$projectRoot/src/Start-App.ps1" # import the main app
 
 # load windows forms library

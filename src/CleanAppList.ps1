@@ -6,17 +6,21 @@ function Invoke-CleanAppList {
 
     Write-Host "Cleaning app list..."
 
-    $lines = Get-Content -Path $RawAppList # all lines in the file
-    $cleanedLines = @() # array to store the cleaned lines
+    # import the raw app list
+    $lines = Import-Csv -Path $RawAppList -Delimiter ","
     
-    # keep the 2nd line of every block of 3 lines
-    for ($i = 0; $i -lt $lines.Count; $i++) {
-        if (($i % 3) -eq 1) {
-            $cleanedLines += $lines[$i].Trim()
-        }
-    }
+    # select only the package names
+    $cleanedLines = $lines | Select-Object -ExpandProperty "PackageName"
+
+    # remove empty lines
+    $cleanedLines = $cleanedLines | Where-Object { $_ }
 
     Write-Host "App list cleaned successfully."
 
     return $cleanedLines
 }
+$projectRoot = Split-Path $PSScriptRoot -Parent # path to the project root
+
+$a = Invoke-CleanAppList $projectRoot/test-ressources/apps.csv
+
+Write-Host $a

@@ -4,7 +4,7 @@ Param(
     [string]$IconBank, # path to the folder containing the icons on which the program will search for the icons to use
     [string]$FgColor = "#BDC1FE", # color of the icon foreground
     [string]$BgColor = "#2E2F43", # color of the icon background
-    [int]$Radius = 125, # border Radius
+    [int]$Radius = 115, # border Radius
     [float]$Zoom = 1.6, # by how much the icon will be zoomed in
     [boolean]$Default = $false # whether to use default images or user images
 )

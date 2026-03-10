@@ -14,3 +14,9 @@ test-ressources/
 # Results
 ME3-Icon-Pack.mtz
 ME3-Icon-Pack-Default.mtz
+
+# Todo
+todo.txt
+
+# Syncthing
+.stfolder
