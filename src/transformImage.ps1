@@ -100,8 +100,6 @@ function Invoke-TransformImageBatch {
 
     foreach ($image in $Images) {
 
-        Write-Host "image: $($image)"
-
         # get output image path based on the default flag
         if ($UseDefaultImages) {
             $outputImage = Join-Path "$projectRoot/assets/default/icons" $image.Name
@@ -109,8 +107,6 @@ function Invoke-TransformImageBatch {
         else {
             $outputImage = Join-Path "$projectRoot/assets/user/icons" $image.Name
         }
-
-        Write-Host "Processing: $($image.Name)..." -ForegroundColor Cyan
 
         # transform the image
         Invoke-TransformImage -SourceImage $image.FullName -OutputImage $outputImage -MagickPath $magickPath -ForegroundIconColor $foregroundIconColor -BackgroundIconColor $backgroundIconColor -BorderRadius $borderRadius -ZoomScale $ZoomScale

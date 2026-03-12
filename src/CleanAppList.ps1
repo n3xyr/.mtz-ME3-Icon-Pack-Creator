@@ -19,8 +19,3 @@ function Invoke-CleanAppList {
 
     return $cleanedLines
 }
-$projectRoot = Split-Path $PSScriptRoot -Parent # path to the project root
-
-$a = Invoke-CleanAppList $projectRoot/test-ressources/apps.csv
-
-Write-Host $a

@@ -4,7 +4,7 @@ Param(
     [string]$IconBank, # path to the folder containing the icons on which the program will search for the icons to use
     [string]$FgColor = "#BDC1FE", # color of the icon foreground
     [string]$BgColor = "#2E2F43", # color of the icon background
-    [int]$Radius = 115, # border Radius
+    [int]$Radius = 110, # border Radius
     [float]$Zoom = 1.6, # by how much the icon will be zoomed in
     [boolean]$Default = $false # whether to use default images or user images
 )
@@ -91,13 +91,18 @@ function Start-App {
     else {
         # compress the images
         Compress-Archive -Path "$projectRoot/assets/user/icons/*" -DestinationPath "$projectRoot/data/user/icons.zip" -Force
-
         # remove the .zip extension 
         Move-Item -Path "$projectRoot/data/user/icons.zip" -Destination "$projectRoot/data/user/icons" -Force
 
-        # create the zip
-        Compress-Archive -Path "$projectRoot/data/user/icons", "$projectRoot/data/default/default-description.xml" -DestinationPath "$projectRoot/data/user/ME3-Icon-Pack.zip" -Force
+        # create the folder theme folder
+        New-Item -Path "$projectRoot/data/user/ME3-Icon-Pack" -ItemType Directory
+        
+        # move all of the content into the theme folder
+        Copy-Item -Path "$projectRoot/data/user/icons" -Destination "$projectRoot/data/user/ME3-Icon-Pack/icons" # icons
+        Copy-Item -Path "$projectRoot/data/default/default-description.xml" -Destination "$projectRoot/data/user/ME3-Icon-Pack/description.xml" # description
 
+        # create the zip
+        Compress-Archive -Path "$projectRoot/data/user/ME3-Icon-Pack/*" -DestinationPath "$projectRoot/data/user/ME3-Icon-Pack.zip" -Force
         # finish the icon pack
         Move-Item -Path "$projectRoot/data/user/ME3-Icon-Pack.zip" -Destination "$projectRoot/ME3-Icon-Pack.mtz" -Force
 
@@ -105,6 +110,8 @@ function Start-App {
         Remove-Item -Path "$projectRoot/data/user/icons" -Force
         Remove-Item -Path "$projectRoot/assets/user/icons/*" -Force
         Remove-Item -Path "$projectRoot/assets/user/input-images/*" -Force
+        Remove-Item -Path "$projectRoot/data/user/clean-app-list.txt" -Force
+        Remove-Item -Path "$projectRoot/data/user/ME3-Icon-Pack" -Force -Recurse
     }
 
 }

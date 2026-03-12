@@ -5,8 +5,6 @@
     <author><![CDATA[Me]]></author>
     <version><![CDATA[1.0]]></version>
     <uiVersion><![CDATA[15]]></uiVersion>
-    <fallback><![CDATA[default]]></fallback>
-    <type><![CDATA[1]]></type>
     <description><![CDATA[Material 3 Icon Pack]]></description>
     <authors>
         <author locale="en_US"><![CDATA[Me]]></author>
