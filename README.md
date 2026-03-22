@@ -1,6 +1,10 @@
 # .mtz ME3 Icon Pack Creator
 Creates an .mtz theme file from app list that can be applied on Xiaomi devices.
 
+WARNING: this is a While In Progress project that I've made for my personal use. Use as your own risk as some things may not work because it has only been tested with a very little set.
+
+The GUI doesn't work for now. Use the Start-App.ps1 powershell script.
+
 ## Prerequisites
 This script requires **ImageMagick** to be installed on your system.
 You can install it using [winget](https://docs.microsoft.com/en-us/windows/package-manager/winget/):
